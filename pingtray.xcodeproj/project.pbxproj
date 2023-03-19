@@ -7,19 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0450324F29C6AA6900AF3942 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450324E29C6AA6900AF3942 /* ModelData.swift */; };
 		047A330E29C5BC5F0080BA3B /* pingtrayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */; };
-		047A331029C5BC5F0080BA3B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A330F29C5BC5F0080BA3B /* ContentView.swift */; };
 		047A331229C5BC5F0080BA3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047A331129C5BC5F0080BA3B /* Assets.xcassets */; };
 		047A331629C5BC5F0080BA3B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047A331529C5BC5F0080BA3B /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0450324E29C6AA6900AF3942 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		047A330A29C5BC5F0080BA3B /* pingtray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pingtray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pingtrayApp.swift; sourceTree = "<group>"; };
-		047A330F29C5BC5F0080BA3B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		047A331129C5BC5F0080BA3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		047A331329C5BC5F0080BA3B /* pingtray.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pingtray.entitlements; sourceTree = "<group>"; };
 		047A331529C5BC5F0080BA3B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		047A332029C5DC3A0080BA3B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +53,9 @@
 		047A330C29C5BC5F0080BA3B /* pingtray */ = {
 			isa = PBXGroup;
 			children = (
+				047A332029C5DC3A0080BA3B /* Info.plist */,
 				047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */,
-				047A330F29C5BC5F0080BA3B /* ContentView.swift */,
+				0450324E29C6AA6900AF3942 /* ModelData.swift */,
 				047A331129C5BC5F0080BA3B /* Assets.xcassets */,
 				047A331329C5BC5F0080BA3B /* pingtray.entitlements */,
 				047A331429C5BC5F0080BA3B /* Preview Content */,
@@ -139,8 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				047A331029C5BC5F0080BA3B /* ContentView.swift in Sources */,
 				047A330E29C5BC5F0080BA3B /* pingtrayApp.swift in Sources */,
+				0450324F29C6AA6900AF3942 /* ModelData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +269,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"pingtray/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = pingtray/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -285,10 +289,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.pyon.pingtray;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -303,6 +308,8 @@
 				DEVELOPMENT_ASSET_PATHS = "\"pingtray/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = pingtray/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -321,10 +328,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = app.pyon.pingtray;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
