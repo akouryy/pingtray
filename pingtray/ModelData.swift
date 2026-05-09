@@ -1,8 +1,12 @@
 import SwiftUI
 
 class ModelData: ObservableObject {
-    @Published var pingMS: String = ""
-    @Published var line: String = ""
+    struct PingResult {
+        var pingMS: String = ""
+        var line: String = ""
+    }
+
+    @Published var pingResult = PingResult()
 
     private let proc = Process()
     private let pipe = Pipe()
@@ -16,14 +20,12 @@ class ModelData: ObservableObject {
                 guard let self else { return }
                 if let line = String(data: data, encoding: .utf8), !line.isEmpty {
                     if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
-                        self.pingMS = String(match.1)
+                        self.pingResult = PingResult(pingMS: String(match.1), line: line)
                     } else {
-                        self.pingMS = ""
+                        self.pingResult = PingResult(line: line)
                     }
-                    self.line = line
                 } else {
-                    self.pingMS = ""
-                    self.line = "Decode error: \(data)"
+                    self.pingResult = PingResult(line: "Decode error: \(data)")
                 }
             }
         }

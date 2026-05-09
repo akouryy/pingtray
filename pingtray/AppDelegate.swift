@@ -27,25 +27,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             ),
         )
 
-        cancellable = modelData.$pingMS.combineLatest(modelData.$line)
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] pingMS, line in
+        cancellable = modelData.$pingResult
+            .sink { [weak self] pingResult in
                 MainActor.assumeIsolated {
-                    self?.update(pingMS: pingMS, line: line)
+                    self?.update(pingResult: pingResult)
                 }
             }
     }
 
-    private func update(pingMS: String, line: String) {
-        lineMenuItem.title = line.trimmingCharacters(in: .whitespacesAndNewlines)
+    private func update(pingResult: ModelData.PingResult) {
+        lineMenuItem.title = pingResult.line.trimmingCharacters(in: .whitespacesAndNewlines)
 
-        if pingMS.isEmpty {
+        if pingResult.pingMS.isEmpty {
             statusItem.button?.image = NSImage(systemSymbolName: "bolt.slash", accessibilityDescription: nil)
             statusItem.button?.attributedTitle = NSAttributedString()
         } else {
             statusItem.button?.image = nil
             let result = NSMutableAttributedString(
-                string: String(format: "%2d", Int(pingMS) ?? 0),
+                string: String(format: "%2d", Int(pingResult.pingMS) ?? 0),
                 attributes: [.font: monoFont],
             )
             result.append(NSAttributedString(string: "ms", attributes: [.font: regularFont]))
