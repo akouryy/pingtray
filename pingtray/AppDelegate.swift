@@ -6,8 +6,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private let modelData = ModelData()
     private var cancellable: AnyCancellable?
     private let lineMenuItem = NSMenuItem()
-    private let monoFont = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize, weight: .regular)
-    private let regularFont = NSFont.systemFont(ofSize: NSFont.systemFontSize)
+    private let monoFont = NSFont.monospacedSystemFont(ofSize: NSFont.systemFontSize - 1, weight: .regular)
+    private let regularFont = NSFont.systemFont(ofSize: NSFont.systemFontSize - 1)
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
