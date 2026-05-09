@@ -9,8 +9,7 @@ class ModelData : ObservableObject {
         let pipe = Pipe()
 
         pipe.fileHandleForReading.readabilityHandler = { [weak self] pipe in
-            if self == nil {
-                print("self is nil")
+            guard let self = self else {
                 proc.terminate()
                 return
             }
@@ -19,21 +18,18 @@ class ModelData : ObservableObject {
                 encoding: String.Encoding(rawValue: NSUTF8StringEncoding)
             ) {
                 if !line.isEmpty {
-                    if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
-                        DispatchQueue.main.async {
-                            self?.pingMS = String(match.1) // Int(match.1) ?? -1
-                            self?.line = line
+                    DispatchQueue.main.async {
+                        if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
+                            self.pingMS = String(match.1)
+                        } else {
+                            self.pingMS = ""
                         }
-                    } else {
-                        DispatchQueue.main.async {
-                            self?.pingMS = ""
-                            self?.line = line
-                        }
+                        self.line = line
                     }
                 }
             } else {
-                self?.pingMS = ""
-                self?.line = "Decode error: \(pipe.availableData)"
+                self.pingMS = ""
+                self.line = "Decode error: \(pipe.availableData)"
             }
         }
 
