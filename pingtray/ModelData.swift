@@ -1,35 +1,34 @@
 import SwiftUI
 
-class ModelData : ObservableObject {
+class ModelData: ObservableObject {
     @Published var pingMS: String = ""
     @Published var line: String = ""
 
-    init() {
-        let proc = Process()
-        let pipe = Pipe()
+    private let proc = Process()
+    private let pipe = Pipe()
+    private var observer: NSObjectProtocol?
 
-        pipe.fileHandleForReading.readabilityHandler = { [weak self] pipe in
-            guard let self = self else {
-                proc.terminate()
-                return
-            }
-            if let line = String(
-                data: pipe.availableData,
-                encoding: String.Encoding(rawValue: NSUTF8StringEncoding)
-            ) {
-                if !line.isEmpty {
-                    DispatchQueue.main.async {
-                        if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
-                            self.pingMS = String(match.1)
-                        } else {
-                            self.pingMS = ""
-                        }
-                        self.line = line
+    init() {
+        pipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
+            guard let self = self else { return }
+            let data = handle.availableData
+            if data.isEmpty { return }
+            if let line = String(data: data, encoding: .utf8), !line.isEmpty {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
+                        self.pingMS = String(match.1)
+                    } else {
+                        self.pingMS = ""
                     }
+                    self.line = line
                 }
             } else {
-                self.pingMS = ""
-                self.line = "Decode error: \(pipe.availableData)"
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.pingMS = ""
+                    self.line = "Decode error: \(data)"
+                }
             }
         }
 
@@ -38,10 +37,18 @@ class ModelData : ObservableObject {
         proc.standardOutput = pipe
         proc.launch()
 
-        NotificationCenter.default.addObserver(
+        observer = NotificationCenter.default.addObserver(
             forName: NSApplication.willTerminateNotification, object: nil, queue: .main
-        ) { _ in
-            proc.terminate()
+        ) { [weak self] _ in
+            self?.proc.terminate()
+        }
+    }
+
+    deinit {
+        pipe.fileHandleForReading.readabilityHandler = nil
+        proc.terminate()
+        if let observer {
+            NotificationCenter.default.removeObserver(observer)
         }
     }
 }

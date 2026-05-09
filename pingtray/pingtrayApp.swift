@@ -2,7 +2,7 @@ import SwiftUI
 
 @main
 struct pingtrayApp: App {
-    @ObservedObject var d = ModelData()
+    @StateObject var d = ModelData()
 
     var body: some Scene {
         MenuBarExtra {
