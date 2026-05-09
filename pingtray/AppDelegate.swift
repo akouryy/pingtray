@@ -28,7 +28,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
 
         cancellable = modelData.$pingMS.combineLatest(modelData.$line)
-            .receive(on: RunLoop.main)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] pingMS, line in
                 MainActor.assumeIsolated {
                     self?.update(pingMS: pingMS, line: line)
