@@ -30,7 +30,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         cancellable = modelData.$pingMS.combineLatest(modelData.$line)
             .receive(on: RunLoop.main)
             .sink { [weak self] pingMS, line in
-                self?.update(pingMS: pingMS, line: line)
+                MainActor.assumeIsolated {
+                    self?.update(pingMS: pingMS, line: line)
+                }
             }
     }
 
