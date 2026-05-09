@@ -9,12 +9,14 @@
 /* Begin PBXBuildFile section */
 		0450324F29C6AA6900AF3942 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0450324E29C6AA6900AF3942 /* ModelData.swift */; };
 		047A330E29C5BC5F0080BA3B /* pingtrayApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */; };
+		CC0001BB29C6AA6900AF3942 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0001AA29C6AA6900AF3942 /* AppDelegate.swift */; };
 		047A331229C5BC5F0080BA3B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047A331129C5BC5F0080BA3B /* Assets.xcassets */; };
 		047A331629C5BC5F0080BA3B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 047A331529C5BC5F0080BA3B /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0450324E29C6AA6900AF3942 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		CC0001AA29C6AA6900AF3942 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		047A330A29C5BC5F0080BA3B /* pingtray.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pingtray.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pingtrayApp.swift; sourceTree = "<group>"; };
 		047A331129C5BC5F0080BA3B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			children = (
 				047A332029C5DC3A0080BA3B /* Info.plist */,
 				047A330D29C5BC5F0080BA3B /* pingtrayApp.swift */,
+				CC0001AA29C6AA6900AF3942 /* AppDelegate.swift */,
 				0450324E29C6AA6900AF3942 /* ModelData.swift */,
 				047A331129C5BC5F0080BA3B /* Assets.xcassets */,
 				047A331329C5BC5F0080BA3B /* pingtray.entitlements */,
@@ -81,6 +84,7 @@
 				047A330629C5BC5F0080BA3B /* Sources */,
 				047A330729C5BC5F0080BA3B /* Frameworks */,
 				047A330829C5BC5F0080BA3B /* Resources */,
+				DD0001CC29C6AA6900AF3942 /* Set BuiltAt */,
 			);
 			buildRules = (
 			);
@@ -136,12 +140,34 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		DD0001CC29C6AA6900AF3942 /* Set BuiltAt */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set BuiltAt";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "builtAt=$(date +\"%Y%m%d%H%M%S\")\n/usr/libexec/PlistBuddy -c \"Add :BuiltAt string $builtAt\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\" 2>/dev/null || /usr/libexec/PlistBuddy -c \"Set :BuiltAt $builtAt\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		047A330629C5BC5F0080BA3B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				047A330E29C5BC5F0080BA3B /* pingtrayApp.swift in Sources */,
+				CC0001BB29C6AA6900AF3942 /* AppDelegate.swift in Sources */,
 				0450324F29C6AA6900AF3942 /* ModelData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,7 +319,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.10;
 			};
 			name = Debug;
 		};
@@ -332,7 +358,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_VERSION = 5.10;
 			};
 			name = Release;
 		};
