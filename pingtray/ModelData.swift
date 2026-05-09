@@ -10,12 +10,12 @@ class ModelData: ObservableObject {
 
     init() {
         pipe.fileHandleForReading.readabilityHandler = { [weak self] handle in
-            guard let self = self else { return }
+            guard let self else { return }
             let data = handle.availableData
             if data.isEmpty { return }
             if let line = String(data: data, encoding: .utf8), !line.isEmpty {
                 DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     if let match = line.wholeMatch(of: /\d+ bytes from \d+\.\d+\.\d+\.\d+: icmp_seq=\d+ ttl=\d+ time=(\d+)\.\d+ ms\s+/) {
                         self.pingMS = String(match.1)
                     } else {
@@ -25,7 +25,7 @@ class ModelData: ObservableObject {
                 }
             } else {
                 DispatchQueue.main.async { [weak self] in
-                    guard let self = self else { return }
+                    guard let self else { return }
                     self.pingMS = ""
                     self.line = "Decode error: \(data)"
                 }
